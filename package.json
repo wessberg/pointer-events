@@ -20,7 +20,7 @@
     "prerollup": "rm -r -f dist",
     "rollup": "rollup -c rollup.config.js",
     "prepare": "npm run rollup",
-    "prepublish:patch": "NODE_ENV=production npm run lint && npm run prepare && npm run generate:all && git commit -am \"Bumped version\" || true",
+    "prepublish:patch": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git commit -am \"Bumped version\" || true",
     "publish:patch": "npm version patch && git push && npm publish"
   },
   "keywords": [
