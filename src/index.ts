@@ -1,0 +1,10 @@
+import "./patch/navigator/max-touch-points";
+import "./patch/event-target/dispatch-event";
+import "./patch/event-target/add-event-listener";
+import "./patch/event-target/remove-event-listener";
+import "./patch/event-target/global-event-handlers";
+import "./patch/element/set-pointer-capture";
+import "./patch/element/release-pointer-capture";
+import "./patch/element/has-pointer-capture";
+import "./patch/window/pointer-event";
+import "./pointer-lock";

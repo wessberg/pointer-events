@@ -1,0 +1,7 @@
+{
+	"extends": "./node_modules/@wessberg/ts-config/tsconfig/tsconfig.json",
+	"compilerOptions": {
+		"target": "es3",
+		"downlevelIteration": true
+	}
+}
