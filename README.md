@@ -73,7 +73,7 @@ defined in the latest [Draft Community Report](https://w3c.github.io/pointereven
 <div touch-action="pan-y"></div>
 ```
 
-See [this section](#are-there-any-known-quirks?) for information about why `touch-action` values provided in stylesheets won't be discovered by the polyfill.
+See [this section](#are-there-any-known-quirks) for information about why `touch-action` values provided in stylesheets won't be discovered by the polyfill.
 
 ## Dependencies & Browser support
 
