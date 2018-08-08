@@ -19,7 +19,10 @@
 		"lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
 		"prerollup": "rm -r -f dist",
 		"rollup": "rollup -c rollup.config.js",
-		"prepare": "npm run rollup"
+		"prepare": "npm run rollup",
+		"publish:major": "npm run generate:all && npm version major && git commit -am \"Bumped version\" || true && git push && npm publish",
+		"publish:minor": "npm run generate:all && npm version minor && git commit -am \"Bumped version\" || true && git push && npm publish",
+		"publish:patch": "npm run generate:all && npm version patch && git commit -am \"Bumped version\" || true && git push && npm publish"
 	},
 	"keywords": [
 		"pointer-events",
