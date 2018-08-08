@@ -13,6 +13,8 @@
 
 This polyfill brings Level 2 [Pointer Events](https://www.w3.org/TR/pointerevents/) to all browsers!
 The Pointer Events specification provides a unified model for handling input from a _pointer_ such as a mouse, a touch, and a pen.
+
+Gone are the complexities of handling both `MouseEvent`s and `TouchEvent`s and juggling the differences between them.
 The primary design goals of this polyfill are to be as spec-compliant as possible, and to support modern web technologies such as Shadow DOM.
 
 ## Install
