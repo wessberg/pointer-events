@@ -22,7 +22,7 @@
 		"prepare": "npm run rollup",
 		"publish:major": "NODE_ENV=production npm run prepare && npm run generate:all && npm version major && git commit -am \"Bumped version\" || true && git push && npm publish",
 		"publish:minor": "NODE_ENV=production npm run prepare && npm run generate:all && npm version minor && git commit -am \"Bumped version\" || true && git push && npm publish",
-		"publish:patch": "NODE_ENV=production npm run prepare && npm run generate:all && npm version patch && git commit -am \"Bumped version\" || true && git push && npm publish"
+		"publish:patch": "NODE_ENV=production npm run prepare && npm run generate:all && git commit -am \"Bumped version\" || true && npm version patch && git push && npm publish"
 	},
 	"keywords": [
 		"pointer-events",

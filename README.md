@@ -12,9 +12,8 @@
 ## Description
 
 This polyfill brings Level 2 [Pointer Events](https://www.w3.org/TR/pointerevents/) to all browsers!
-The Pointer Events specification provides a unified model for handling input from a *pointer* such as a mouse, a touch, and a pen.
-
-The primary design goals of this polyfill are to be as spec-compliant as possible, and to support modern web technologies such as Shadow DOM. 
+The Pointer Events specification provides a unified model for handling input from a _pointer_ such as a mouse, a touch, and a pen.
+The primary design goals of this polyfill are to be as spec-compliant as possible, and to support modern web technologies such as Shadow DOM.
 
 ## Install
 
@@ -43,11 +42,11 @@ One way to do so is with an async import:
 
 ```typescript
 if (!("PointerEvent" in window)) {
-	await import("@wessberg/pointer-events");
+  await import("@wessberg/pointer-events");
 }
 ```
 
-Alternatively, you can use [Polyfill.app](https://github.com/wessberg/Polyfiller) which uses this polyfill and takes care of only loading the polyfill if needed as well as adding the language features that the polyfill depends on (See [dependencies](#dependencies)). 
+Alternatively, you can use [Polyfill.app](https://github.com/wessberg/Polyfiller) which uses this polyfill and takes care of only loading the polyfill if needed as well as adding the language features that the polyfill depends on (See [dependencies](#dependencies)).
 
 ### `touch-action` support
 
@@ -62,24 +61,19 @@ defined in the latest [Draft Community Report](https://w3c.github.io/pointereven
 - `pan-up`
 - `pan-down`
 - `auto`
-- `manipulation`*
-
-<small>*: The <code>manipulation</code> value will be treated the same as <code>auto</code>.</small>
-
-Upon pointer contact, the polyfill will walk up the DOM tree from the target element and look for elements that has a style attribute including a `touch-action` property or an element with a `touch-action` attribute.
-
-This means that either of those two approaches will work:
+- `manipulation`_
+  <small>_: The <code>manipulation</code> value will be treated the same as <code>auto</code>.</small>
+  Upon pointer contact, the polyfill will walk up the DOM tree from the target element and look for elements that has a style attribute including a `touch-action` property or an element with a `touch-action` attribute.
+  This means that either of those two approaches will work:
 
 ```html
 <!-- Works just fine when given in the 'style' attribute -->
 <div style="touch-action: pan-y"></div>
-
 <!-- Works just fine when given as an attribute of the name 'touch-action' -->
 <div touch-action="pan-y"></div>
 ```
 
 See [this section](#are-there-any-known-quirks?) for information about why `touch-action` values provided in stylesheets won't be discovered by the polyfill.
- 
 
 ## Dependencies & Browser support
 
@@ -100,12 +94,10 @@ This polyfill is distributed in ES3-compatible syntax, but is using some modern 
 - `EventTarget.prototype.dispatchEvent`
 - `Document.prototype.elementFromPoint`
 - `window.getComputedStyle`
-- `ShadowRoot.prototype.elementFromPoint`*
-
-<small>*: This is only relevant if you're using Shadow DOM (in which case a Shadow DOM polyfill will most likely polyfill the prototype method).</small>
-
-For by far the most browsers, these features will already be natively available.
-Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
+- `ShadowRoot.prototype.elementFromPoint`_
+  <small>_: This is only relevant if you're using Shadow DOM (in which case a Shadow DOM polyfill will most likely polyfill the prototype method).</small>
+  For by far the most browsers, these features will already be natively available.
+  Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
 
 ## FAQ
 
@@ -113,11 +105,9 @@ Generally, I would highly recommend using something like [Polyfill.app](https://
 
 Yes, there are several, including [PEP](https://github.com/jquery/PEP) and [Points](https://github.com/Rich-Harris/Points).
 This polyfill was made because neither were built with Shadow DOM (v1) support in mind.
-
-For example, *Points* assumes a single document-level root and relies on `document.elementFromPoint` which will never reach within Shadow roots.
-And, *PEP* relies on */deep/* selectors, something that has been removed from the platform.
-
-I found that none of the existing polyfills I attempted *"just worked"* and decided to try it out for myself.
+For example, _Points_ assumes a single document-level root and relies on `document.elementFromPoint` which will never reach within Shadow roots.
+And, _PEP_ relies on _/deep/_ selectors, something that has been removed from the platform.
+I found that none of the existing polyfills I attempted _"just worked"_ and decided to try it out for myself.
 There may well be parts of this polyfill that is less aligned with the spec than other polyfills, and such issues will be ironed out over time.
 
 ### Are there any known quirks?
