@@ -1,13 +1,15 @@
 import {SHARED_DESCRIPTOR_OPTIONS} from "./shared-descriptor-options";
 
+type NullableEventTarget = EventTarget|undefined|null;
+
 /**
  * Overwrites the targets for the given event
  * @param {Event} e
- * @param {EventTarget | undefined} target
- * @param {EventTarget | undefined} currentTarget
- * @param {EventTarget | undefined} relatedTarget
+ * @param {NullableEventTarget} target
+ * @param {NullableEventTarget} currentTarget
+ * @param {NullableEventTarget} relatedTarget
  */
-export function overwriteTargetsForEvent (e: Event, target?: EventTarget|undefined|null, currentTarget?: EventTarget|undefined|null, relatedTarget?: EventTarget|undefined|null): void {
+export function overwriteTargetsForEvent (e: Event, target?: NullableEventTarget, currentTarget?: NullableEventTarget, relatedTarget?: NullableEventTarget): void {
 	// Set the original target and currentTarget on the cancel event
 	Object.defineProperties(e, {
 		...(target === undefined ? {} : {
