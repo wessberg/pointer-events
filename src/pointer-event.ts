@@ -363,6 +363,14 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
+	 * @returns {EventTarget[]}
+	 */
+	public composedPath (): EventTarget[] {
+		return [];
+	}
+
+	/**
+	 * This is a no-op. A MouseEvent is returned from the constructor
 	 * @param {string} _keyArg
 	 * @returns {boolean}
 	 */

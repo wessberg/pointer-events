@@ -7,6 +7,6 @@ import {PointerEvent} from "./pointer-event";
  */
 export function invokeListener (event: PointerEvent, listener: EventListenerOrEventListenerObject): void {
 	typeof listener === "function"
-		? listener(event)
+		? listener(event as Event)
 		: listener.handleEvent(event);
 }

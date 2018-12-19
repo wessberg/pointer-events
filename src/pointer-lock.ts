@@ -7,7 +7,7 @@ export const HAS_POINTER_LOCK = () => hasPointerLock;
  * update the value of 'hasPointerLock'
  */
 const handler = () => {
-	hasPointerLock = document.pointerLockElement != null && (<any>document).mozPointerLockElement != null;
+	hasPointerLock = (document as any).pointerLockElement != null && (document as any).mozPointerLockElement != null;
 };
 
 // Listen for PointerLock events

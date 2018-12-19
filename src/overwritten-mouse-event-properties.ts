@@ -8,6 +8,6 @@ export declare type RequiredOverwrittenMouseEventProperties =
 	"fromElement"
 	|"toElement"
 	|"scoped"
-	|"deepPath"
 	|"detail"
-	|"composed";
+	|"composed"
+	|"composedPath";

@@ -37,15 +37,15 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@wessberg/rollup-plugin-ts": "0.0.34",
-    "@wessberg/scaffold": "1.0.0",
-    "@wessberg/ts-config": "^0.0.27",
-    "npm-check-updates": "^2.14.2",
-    "rollup": "^0.64.1",
-    "rollup-plugin-node-resolve": "^3.3.0",
+    "@wessberg/rollup-plugin-ts": "1.1.11",
+    "@wessberg/scaffold": "1.0.5",
+    "@wessberg/ts-config": "^0.0.34",
+    "npm-check-updates": "^2.15.0",
+    "rollup": "^0.68.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "tslib": "^1.9.3",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
   },
   "dependencies": {},
   "main": "./dist/index.js",

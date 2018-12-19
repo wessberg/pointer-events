@@ -22,6 +22,10 @@ import {findNearestAncestorsWithTouchAction} from "../find-nearest-ancestors-wit
 
 // tslint:disable:no-any
 
+// tslint:disable:no-identical-conditions
+
+// tslint:disable:no-collapsible-if
+
 /**
  * The name of the property to extend TouchEvents with
  * @type {string}
@@ -693,10 +697,6 @@ function createPointerEventsForTouchOfType (type: PointerEventType, e: TouchEven
 					value: (<any>e).scoped, ...SHARED_DESCRIPTOR_OPTIONS
 				},
 
-				deepPath: {
-					value: e.deepPath, ...SHARED_DESCRIPTOR_OPTIONS
-				},
-
 				// The 'fromElement' property should be set to 'null' for interoperability reasons according to the spec
 				// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 				fromElement: {
@@ -721,6 +721,10 @@ function createPointerEventsForTouchOfType (type: PointerEventType, e: TouchEven
 					value: true, ...SHARED_DESCRIPTOR_OPTIONS
 				},
 
+				composedPath: {
+					value: () => getEventPath(e.target as Element), ...SHARED_DESCRIPTOR_OPTIONS
+				},
+
 				...(!("region" in Touch.prototype) ? {} : {
 					region: {
 						value: (<any>currentTouch).region, ...SHARED_DESCRIPTOR_OPTIONS
@@ -729,8 +733,13 @@ function createPointerEventsForTouchOfType (type: PointerEventType, e: TouchEven
 
 				...(!("path" in Event.prototype) || !isElement(currentTouch.target) ? {} : {
 					path: {
-						// Touch contact are indicated by the button value 0
 						value: getEventPath(currentTouch.target), ...SHARED_DESCRIPTOR_OPTIONS
+					}
+				}),
+
+				...(!("deepPath" in Event.prototype) || !isElement(currentTouch.target) ? {} : {
+					path: {
+						value: () => getEventPath(currentTouch.target as Element), ...SHARED_DESCRIPTOR_OPTIONS
 					}
 				})
 			};

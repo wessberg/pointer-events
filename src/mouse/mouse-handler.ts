@@ -16,6 +16,7 @@ import {getMouseTarget} from "./get-mouse-properties";
 import {POINTER_ID_TO_CAPTURED_TARGET_MAP} from "../pointer-capture";
 import {isElement} from "../is-element";
 import {IDisposable} from "../i-disposable";
+import {getEventPath} from "../get-event-path";
 
 // tslint:disable:no-any
 
@@ -470,10 +471,6 @@ function createPointerEventsForMouseOfType (type: PointerEventType, e: MouseEven
 			value: (<any>e).scoped, ...SHARED_DESCRIPTOR_OPTIONS
 		},
 
-		deepPath: {
-			value: e.deepPath, ...SHARED_DESCRIPTOR_OPTIONS
-		},
-
 		// The 'fromElement' property should be set to 'null' for interoperability reasons according to the spec
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		fromElement: {
@@ -498,6 +495,10 @@ function createPointerEventsForMouseOfType (type: PointerEventType, e: MouseEven
 			value: true, ...SHARED_DESCRIPTOR_OPTIONS
 		},
 
+		composedPath: {
+			value: () => getEventPath(e.target as Element), ...SHARED_DESCRIPTOR_OPTIONS
+		},
+
 		...(!("region" in MouseEvent.prototype) ? {} : {
 			region: {
 				value: (<any>e).region, ...SHARED_DESCRIPTOR_OPTIONS
@@ -508,6 +509,12 @@ function createPointerEventsForMouseOfType (type: PointerEventType, e: MouseEven
 			path: {
 				// Touch contact are indicated by the button value 0
 				value: (<any>e).path, ...SHARED_DESCRIPTOR_OPTIONS
+			}
+		}),
+
+		...(!("deepPath" in Event.prototype) || !isElement(e.target) ? {} : {
+			path: {
+				value: () => getEventPath(e.target as Element), ...SHARED_DESCRIPTOR_OPTIONS
 			}
 		})
 	};

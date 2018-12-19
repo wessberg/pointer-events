@@ -1,5 +1,5 @@
-import typescriptRollupPlugin from "@wessberg/rollup-plugin-ts";
-import nodeResolveRollupPlugin from "rollup-plugin-node-resolve";
+import ts from "@wessberg/rollup-plugin-ts";
+import resolve from "rollup-plugin-node-resolve";
 import packageJson from "./package.json";
 
 // noinspection NpmUsedModulesInstalled
@@ -17,12 +17,9 @@ export default {
 	context: "window",
 	treeshake: true,
 	plugins: [
-		typescriptRollupPlugin({
-			tsconfig: process.env.NODE_ENV === "production" ? "tsconfig.dist.json" : "tsconfig.json",
-			include: ["*.ts+(|x)", "**/*.ts+(|x)"],
-			exclude: ["*.d.ts", "**/*.d.ts"],
-			parseExternalModules: true
+		ts({
+			tsconfig: process.env.NODE_ENV === "production" ? "tsconfig.dist.json" : "tsconfig.json"
 		}),
-		nodeResolveRollupPlugin()
+		resolve()
 	]
 };
