@@ -66,6 +66,7 @@ defined in the latest [Draft Community Report](https://w3c.github.io/pointereven
 - `manipulation` (will be treated the same ast `auto`)
 
 Upon pointer contact, the polyfill will walk up the DOM tree from the target element and look for elements that has either:
+
 - A style attribute including a `touch-action` property.
 - An element with a `touch-action` attribute.
 - Or, an element with a `CSSStyleDeclaration` with a `touchAction` property.
@@ -105,9 +106,9 @@ This polyfill is distributed in ES3-compatible syntax, but is using some modern 
 - `EventTarget.prototype.dispatchEvent`
 - `Document.prototype.elementFromPoint`
 - `window.getComputedStyle`
-- `ShadowRoot.prototype.elementFromPoint`*
+- `ShadowRoot.prototype.elementFromPoint`\*
 
-_*: This is only relevant if you're using Shadow DOM (in which case a Shadow DOM polyfill will most likely polyfill the prototype method)._
+_\*: This is only relevant if you're using Shadow DOM (in which case a Shadow DOM polyfill will most likely polyfill the prototype method)._
 
 For by far the most browsers, these features will already be natively available.
 Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
