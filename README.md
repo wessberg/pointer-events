@@ -48,7 +48,7 @@ if (!("PointerEvent" in window)) {
 }
 ```
 
-Alternatively, you can use [Polyfill.app](https://github.com/wessberg/Polyfiller) which uses this polyfill and takes care of only loading the polyfill if needed as well as adding the language features that the polyfill depends on (See [dependencies](#dependencies)).
+Alternatively, you can use [Polyfill.app](https://github.com/wessberg/Polyfiller) which uses this polyfill and takes care of only loading the polyfill if needed as well as adding the language features that the polyfill depends on (See [dependencies](#dependencies--browser-support)).
 
 ### `touch-action` support
 
@@ -63,16 +63,25 @@ defined in the latest [Draft Community Report](https://w3c.github.io/pointereven
 - `pan-up`
 - `pan-down`
 - `auto`
-- `manipulation`_
-  <small>_: The <code>manipulation</code> value will be treated the same as <code>auto</code>.</small>
-  Upon pointer contact, the polyfill will walk up the DOM tree from the target element and look for elements that has a style attribute including a `touch-action` property or an element with a `touch-action` attribute.
-  This means that either of those two approaches will work:
+- `manipulation` (will be treated the same ast `auto`)
+
+Upon pointer contact, the polyfill will walk up the DOM tree from the target element and look for elements that has either:
+- A style attribute including a `touch-action` property.
+- An element with a `touch-action` attribute.
+- Or, an element with a `CSSStyleDeclaration` with a `touchAction` property.
+
+This means that either of the following approaches will work:
 
 ```html
 <!-- Works just fine when given in the 'style' attribute -->
 <div style="touch-action: pan-y"></div>
 <!-- Works just fine when given as an attribute of the name 'touch-action' -->
 <div touch-action="pan-y"></div>
+```
+
+```typescript
+// Works jut fine when given as a style property
+element.style.touchAction = "pan-y";
 ```
 
 See [this section](#are-there-any-known-quirks) for information about why `touch-action` values provided in stylesheets won't be discovered by the polyfill.
@@ -96,10 +105,12 @@ This polyfill is distributed in ES3-compatible syntax, but is using some modern 
 - `EventTarget.prototype.dispatchEvent`
 - `Document.prototype.elementFromPoint`
 - `window.getComputedStyle`
-- `ShadowRoot.prototype.elementFromPoint`_
-  <small>_: This is only relevant if you're using Shadow DOM (in which case a Shadow DOM polyfill will most likely polyfill the prototype method).</small>
-  For by far the most browsers, these features will already be natively available.
-  Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
+- `ShadowRoot.prototype.elementFromPoint`*
+
+_*: This is only relevant if you're using Shadow DOM (in which case a Shadow DOM polyfill will most likely polyfill the prototype method)._
+
+For by far the most browsers, these features will already be natively available.
+Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
 
 ## FAQ
 

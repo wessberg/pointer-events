@@ -29,6 +29,13 @@ export function findNearestAncestorsWithTouchAction (target: Element): ITouchAct
 				}
 			}
 
+			if (touchActionPropertyValue == null || touchActionPropertyValue === "") {
+				const attributeValue = target.getAttribute("touch-action");
+				if (attributeValue != null && attributeValue !== "") {
+					touchActionPropertyValue = attributeValue;
+				}
+			}
+
 			if (touchActionPropertyValue != null) {
 				path.push({
 					element: currentElement, touchAction: new Set(<TouchAction[]>touchActionPropertyValue

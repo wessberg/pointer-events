@@ -14,15 +14,22 @@
     "generate:license": "scaffold license",
     "generate:contributing": "scaffold contributing",
     "generate:coc": "scaffold coc",
-    "generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme",
+    "generate:changelog": "standard-changelog --first-release",
+    "generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme  & npm run generate:changelog",
     "update": "ncu -ua && npm update && npm install",
     "lint": "tsc --noEmit && tslint -c tslint.json --project tsconfig.json",
     "prerollup": "rm -r -f dist",
     "rollup": "rollup -c rollup.config.js",
     "prepare": "npm run rollup",
-    "prepublish:patch": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git commit -am \"Bumped version\" || true",
-    "publish:patch": "npm version patch && git push && npm publish"
+    "publish:before": "NODE_ENV=production npm run lint && NODE_ENV=production npm run prepare && npm run generate:all && git add . && git commit -am \"Bumped version\" || true",
+    "publish:after": "git push && npm publish",
+    "publish:patch": "npm run publish:before && npm version patch && npm run publish:after",
+    "publish:minor": "npm run publish:before && npm version minor && npm run publish:after",
+    "publish:major": "npm run publish:before && npm version major && npm run publish:after"
   },
+  "files": [
+    "dist/**/*.*"
+  ],
   "keywords": [
     "pointer-events",
     "polyfill",
@@ -37,15 +44,16 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@wessberg/rollup-plugin-ts": "1.1.11",
+    "@wessberg/rollup-plugin-ts": "1.1.17",
     "@wessberg/scaffold": "1.0.5",
     "@wessberg/ts-config": "^0.0.34",
     "npm-check-updates": "^2.15.0",
-    "rollup": "^0.68.0",
+    "rollup": "^1.0.2",
     "rollup-plugin-node-resolve": "^4.0.0",
     "tslib": "^1.9.3",
     "tslint": "^5.12.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "standard-changelog": "^2.0.6"
   },
   "dependencies": {},
   "main": "./dist/index.js",
