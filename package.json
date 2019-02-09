@@ -1,6 +1,6 @@
 {
 	"name": "@wessberg/pointer-events",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "A Level 2 spec-compliant Pointer Events polyfill with first-class Shadow DOM support",
 	"repository": {
 		"type": "git",
