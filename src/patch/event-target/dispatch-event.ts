@@ -13,10 +13,10 @@ if (!SUPPORTS_POINTER_EVENT_HANDLERS) {
 	 * @param {Event} event
 	 * @returns {boolean}
 	 */
-	EventTarget.prototype.dispatchEvent = function (event: Event): boolean {
+	EventTarget.prototype.dispatchEvent = function(event: Event): boolean {
 		if (isPointerEventType(event.type)) {
 			// Also invoke the event handler, if it exists
-			const eventHandler: Function|null = this[<keyof EventTarget> `on${event.type}`];
+			const eventHandler: Function | null = this[<keyof EventTarget>`on${event.type}`];
 			if (eventHandler != null) {
 				eventHandler(event);
 			}

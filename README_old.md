@@ -1,79 +1,21 @@
-<!-- SHADOW_SECTION_LOGO_START -->
+<a href="https://npmcharts.com/compare/@wessberg/pointer-events?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/%40wessberg%2Fpointer-events.svg" height="20"></img></a>
+<a href="https://david-dm.org/wessberg/pointer-events"><img alt="Dependencies" src="https://img.shields.io/david/wessberg/pointer-events.svg" height="20"></img></a>
+<a href="https://www.npmjs.com/package/@wessberg/pointer-events"><img alt="NPM Version" src="https://badge.fury.io/js/%40wessberg%2Fpointer-events.svg" height="20"></img></a>
+<a href="https://github.com/wessberg/pointer-events/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fpointer-events.svg" height="20"></img></a>
+<a href="https://opensource.org/licenses/MIT"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-yellow.svg" height="20"></img></a>
+<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" height="20"></img></a>
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/pointer-events/master/documentation/asset/logo.png" height="150"   /></div>
-
-<!-- SHADOW_SECTION_LOGO_END -->
-
-<!-- SHADOW_SECTION_DESCRIPTION_SHORT_START -->
+# `@wessberg/pointer-events`
 
 > A Level 2 spec-compliant Pointer Events polyfill with first-class Shadow DOM support
 
-<!-- SHADOW_SECTION_DESCRIPTION_SHORT_END -->
-
-<!-- SHADOW_SECTION_BADGES_START -->
-
-<a href="https://npmcharts.com/compare/%40wessberg%2Fpointer-events?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/%40wessberg%2Fpointer-events.svg"    /></a>
-<a href="https://www.npmjs.com/package/%40wessberg%2Fpointer-events"><img alt="NPM version" src="https://badge.fury.io/js/%40wessberg%2Fpointer-events.svg"    /></a>
-<a href="https://david-dm.org/wessberg/pointer-events"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fpointer-events.svg"    /></a>
-<a href="https://github.com/wessberg/pointer-events/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fpointer-events.svg"    /></a>
-<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"    /></a>
-<a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"    /></a>
-<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://img.shields.io/badge/patreon-donate-green.svg"    /></a>
-
-<!-- SHADOW_SECTION_BADGES_END -->
-
-<!-- SHADOW_SECTION_DESCRIPTION_LONG_START -->
-
 ## Description
-
-<!-- SHADOW_SECTION_DESCRIPTION_LONG_END -->
 
 This polyfill brings Level 2 [Pointer Events](https://www.w3.org/TR/pointerevents/) to all browsers!
 The Pointer Events specification provides a unified model for handling input from a _pointer_ such as a mouse, a touch, and a pen.
 
 Gone are the complexities of handling both `MouseEvent`s and `TouchEvent`s and juggling the differences between them.
 The primary design goals of this polyfill are to be as spec-compliant as possible, and to support modern web technologies such as Shadow DOM.
-
-<!-- SHADOW_SECTION_FEATURES_START -->
-
-### Features
-
-<!-- SHADOW_SECTION_FEATURES_END -->
-
-- Spec-compliant
-- Shadow DOM support
-- Performant
-- Feature-complete
-
-<!-- SHADOW_SECTION_FEATURE_IMAGE_START -->
-
-<!-- SHADOW_SECTION_FEATURE_IMAGE_END -->
-
-<!-- SHADOW_SECTION_TOC_START -->
-
-## Table of Contents
-
-- [Description](#description)
-  - [Features](#features)
-- [Table of Contents](#table-of-contents)
-- [Install](#install)
-  - [NPM](#npm)
-  - [Yarn](#yarn)
-- [Usage](#usage)
-  - [`touch-action` support](#touch-action-support)
-- [Dependencies & Browser support](#dependencies--browser-support)
-- [Contributing](#contributing)
-- [Maintainers](#maintainers)
-- [Backers](#backers)
-  - [Patreon](#patreon)
-- [FAQ](#faq)
-  - [There are several polyfills for Pointer events already. Why another one?](#there-are-several-polyfills-for-pointer-events-already-why-another-one)
-  - [Are there any known quirks?](#are-there-any-known-quirks)
-- [License](#license)
-
-<!-- SHADOW_SECTION_TOC_END -->
-
-<!-- SHADOW_SECTION_INSTALL_START -->
 
 ## Install
 
@@ -89,13 +31,7 @@ $ npm install @wessberg/pointer-events
 $ yarn add @wessberg/pointer-events
 ```
 
-<!-- SHADOW_SECTION_INSTALL_END -->
-
-<!-- SHADOW_SECTION_USAGE_START -->
-
 ## Usage
-
-<!-- SHADOW_SECTION_USAGE_END -->
 
 To use the Polyfill, simply import it:
 
@@ -177,41 +113,7 @@ _\*: This is only relevant if you're using Shadow DOM (in which case a Shadow DO
 For by far the most browsers, these features will already be natively available.
 Generally, I would highly recommend using something like [Polyfill.app](https://github.com/wessberg/Polyfiller) which takes care of this stuff automatically.
 
-<!-- SHADOW_SECTION_CONTRIBUTING_START -->
-
-## Contributing
-
-Do you want to contribute? Awesome! Please follow [these recommendations](./CONTRIBUTING.md).
-
-<!-- SHADOW_SECTION_CONTRIBUTING_END -->
-
-<!-- SHADOW_SECTION_MAINTAINERS_START -->
-
-## Maintainers
-
-| <img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="70"   />                   |
-| --------------------------------------------------------------------------------------------------------------------------------- |
-| [Frederik Wessberg](mailto:frederikwessberg@hotmail.com)<br>[@FredWessberg](https://twitter.com/FredWessberg)<br>_Lead Developer_ |
-
-<!-- SHADOW_SECTION_MAINTAINERS_END -->
-
-<!-- SHADOW_SECTION_BACKERS_START -->
-
-## Backers
-
-### Patreon
-
-[Become a backer](https://www.patreon.com/bePatron?u=11315442) and get your name, avatar, and Twitter handle listed here.
-
-<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Backers on Patreon" src="https://patreon-badge.herokuapp.com/11315442.png"  width="500"  /></a>
-
-<!-- SHADOW_SECTION_BACKERS_END -->
-
-<!-- SHADOW_SECTION_FAQ_START -->
-
 ## FAQ
-
-<!-- SHADOW_SECTION_FAQ_END -->
 
 ### There are several polyfills for Pointer events already. Why another one?
 
@@ -227,10 +129,18 @@ There may well be parts of this polyfill that is less aligned with the spec than
 For now, just one: The `touch-action` CSS property needs to be provided from either inline styles or an attribute of the same name.
 This is because [polyfilling CSS is hard and really bad for performance](https://philipwalton.com/articles/the-dark-side-of-polyfilling-css/).
 
-<!-- SHADOW_SECTION_LICENSE_START -->
+## Contributing
 
-## License
+Do you want to contribute? Awesome! Please follow [these recommendations](./CONTRIBUTING.md).
 
-MIT © [Frederik Wessberg](mailto:frederikwessberg@hotmail.com) ([@FredWessberg](https://twitter.com/FredWessberg)) ([Website](https://github.com/wessberg))
+## Maintainers
 
-<!-- SHADOW_SECTION_LICENSE_END -->
+- <a href="https://github.com/wessberg"><img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="11"></img></a> [Frederik Wessberg](https://github.com/wessberg): _Maintainer_
+
+## Backers 🏅
+
+[Become a backer](https://www.patreon.com/bePatron?u=11315442) and get your name, logo, and link to your site listed here.
+
+## License 📄
+
+MIT © [Frederik Wessberg](https://github.com/wessberg)

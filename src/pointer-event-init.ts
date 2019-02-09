@@ -9,6 +9,6 @@ export interface PointerEventInit extends MouseEventInit {
 	tiltX: number;
 	tiltY: number;
 	twist: number;
-	pointerType: ""|"mouse"|"touch"|"pen";
+	pointerType: "" | "mouse" | "touch" | "pen";
 	isPrimary: boolean;
 }

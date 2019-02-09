@@ -61,7 +61,7 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * See https://www.w3.org/TR/pointerevents/#dom-pointerevent-pointertype
 	 * @type {number}
 	 */
-	public readonly pointerType: ""|"mouse"|"pen"|"touch";
+	public readonly pointerType: "" | "mouse" | "pen" | "touch";
 
 	/**
 	 * See https://www.w3.org/TR/pointerevents/#dom-pointerevent-isprimary
@@ -163,7 +163,7 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * Uses the underlying MouseEvent implementation
 	 * @type {EventTarget|null}
 	 */
-	public readonly currentTarget: EventTarget|null;
+	public readonly currentTarget: EventTarget | null;
 
 	/**
 	 * Uses the underlying MouseEvent implementation
@@ -283,13 +283,13 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * Uses the underlying MouseEvent implementation
 	 * @type {Element|null}
 	 */
-	public readonly srcElement: Element|null;
+	public readonly srcElement: Element | null;
 
 	/**
 	 * Uses the underlying MouseEvent implementation
 	 * @type {EventTarget|null}
 	 */
-	public readonly target: EventTarget|null;
+	public readonly target: EventTarget | null;
 
 	/**
 	 * Uses the underlying MouseEvent implementation
@@ -327,10 +327,9 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 */
 	public readonly y: number;
 
-	constructor (type: PointerEventType, eventInitDict: Partial<PointerEventInit> = {}) {
-
+	constructor(type: PointerEventType, eventInitDict: Partial<PointerEventInit> = {}) {
 		// Sets all of the given PropertyDescriptors with fallbacks to the default values as defined by the specification
-		const propsToSet: { [Key in keyof IPointerEventBase]?: PropertyDescriptor } = {
+		const propsToSet: {[Key in keyof IPointerEventBase]?: PropertyDescriptor} = {
 			pointerId: getDescriptorWithFallback("pointerId", eventInitDict.pointerId),
 			width: getDescriptorWithFallback("width", eventInitDict.width),
 			height: getDescriptorWithFallback("height", eventInitDict.height),
@@ -344,20 +343,20 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 		};
 
 		const mouseEvent = new MouseEvent(type, eventInitDict);
-		Object.defineProperties(mouseEvent, <PropertyDescriptorMap> propsToSet);
+		Object.defineProperties(mouseEvent, <PropertyDescriptorMap>propsToSet);
 
 		// Update the SEEN_POINTER_IDS Set with the pointer id from the options
 		SEEN_POINTER_IDS.add(propsToSet.pointerId!.value);
 
 		// Return the constructed MouseEvent directly from the constructor
-		return <PointerEvent><any> mouseEvent;
+		return <PointerEvent>(<any>mouseEvent);
 	}
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
 	 * @returns {EventTarget[]}
 	 */
-	public deepPath (): EventTarget[] {
+	public deepPath(): EventTarget[] {
 		return [];
 	}
 
@@ -365,7 +364,7 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * This is a no-op. A MouseEvent is returned from the constructor
 	 * @returns {EventTarget[]}
 	 */
-	public composedPath (): EventTarget[] {
+	public composedPath(): EventTarget[] {
 		return [];
 	}
 
@@ -374,7 +373,7 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * @param {string} _keyArg
 	 * @returns {boolean}
 	 */
-	public getModifierState (_keyArg: string): boolean {
+	public getModifierState(_keyArg: string): boolean {
 		return false;
 	}
 
@@ -384,8 +383,7 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * @param {boolean} _bubbles
 	 * @param {boolean} _cancelable
 	 */
-	public initEvent (_type: string, _bubbles?: boolean, _cancelable?: boolean): void {
-	}
+	public initEvent(_type: string, _bubbles?: boolean, _cancelable?: boolean): void {}
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
@@ -405,8 +403,23 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * @param {number} _buttonArg
 	 * @param {EventTarget | null} _relatedTargetArg
 	 */
-	public initMouseEvent (_typeArg: string, _canBubbleArg: boolean, _cancelableArg: boolean, _viewArg: Window, _detailArg: number, _screenXArg: number, _screenYArg: number, _clientXArg: number, _clientYArg: number, _ctrlKeyArg: boolean, _altKeyArg: boolean, _shiftKeyArg: boolean, _metaKeyArg: boolean, _buttonArg: number, _relatedTargetArg: EventTarget|null): void {
-	}
+	public initMouseEvent(
+		_typeArg: string,
+		_canBubbleArg: boolean,
+		_cancelableArg: boolean,
+		_viewArg: Window,
+		_detailArg: number,
+		_screenXArg: number,
+		_screenYArg: number,
+		_clientXArg: number,
+		_clientYArg: number,
+		_ctrlKeyArg: boolean,
+		_altKeyArg: boolean,
+		_shiftKeyArg: boolean,
+		_metaKeyArg: boolean,
+		_buttonArg: number,
+		_relatedTargetArg: EventTarget | null
+	): void {}
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
@@ -416,24 +429,20 @@ export class PointerEvent implements IPointerEventBase, MouseEvent {
 	 * @param {Window} _viewArg
 	 * @param {number} _detailArg
 	 */
-	public initUIEvent (_typeArg: string, _canBubbleArg: boolean, _cancelableArg: boolean, _viewArg: Window, _detailArg: number): void {
-	}
+	public initUIEvent(_typeArg: string, _canBubbleArg: boolean, _cancelableArg: boolean, _viewArg: Window, _detailArg: number): void {}
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
 	 */
-	public preventDefault (): void {
-	}
+	public preventDefault(): void {}
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
 	 */
-	public stopImmediatePropagation (): void {
-	}
+	public stopImmediatePropagation(): void {}
 
 	/**
 	 * This is a no-op. A MouseEvent is returned from the constructor
 	 */
-	public stopPropagation (): void {
-	}
+	public stopPropagation(): void {}
 }

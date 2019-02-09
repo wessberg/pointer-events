@@ -6,9 +6,9 @@ import {getParent} from "./get-parent";
  * @param {Element} target
  * @returns {IScrollAncestor}
  */
-export function findNearestAncestorsWithScroll (target: Element): IScrollAncestor[] {
+export function findNearestAncestorsWithScroll(target: Element): IScrollAncestor[] {
 	const path: IScrollAncestor[] = [];
-	let currentElement: EventTarget|null = target;
+	let currentElement: EventTarget | null = target;
 	while (currentElement != null) {
 		if ("style" in currentElement) {
 			const computedStyle = getComputedStyle(currentElement);

@@ -5,8 +5,6 @@ import {PointerEvent} from "./pointer-event";
  * @param {PointerEvent} event
  * @param {EventListenerOrEventListenerObject} listener
  */
-export function invokeListener (event: PointerEvent, listener: EventListenerOrEventListenerObject): void {
-	typeof listener === "function"
-		? listener(event as Event)
-		: listener.handleEvent(event);
+export function invokeListener(event: PointerEvent, listener: EventListenerOrEventListenerObject): void {
+	typeof listener === "function" ? listener(event as Event) : listener.handleEvent(event);
 }

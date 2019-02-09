@@ -7,15 +7,13 @@ import {SEEN_POINTER_IDS} from "../../seen-pointer-ids";
 import {throwDOMException} from "../../throw-dom-exception";
 
 if (!SUPPORTS_POINTER_EVENTS) {
-
 	/**
 	 * Releases pointer capture for the pointer identified by the argument pointerId to the element on which
 	 * this method is invoked
 	 * https://www.w3.org/TR/pointerevents/#extensions-to-the-element-interface
 	 * @param {number} pointerId
 	 */
-	Element.prototype.releasePointerCapture = function (pointerId: number): void {
-
+	Element.prototype.releasePointerCapture = function(pointerId: number): void {
 		// If no active pointer exists with the given pointer id, throw a DOMException
 		// with name 'InvalidPointerId'
 		// https://www.w3.org/TR/pointerevents/#setting-pointer-capture

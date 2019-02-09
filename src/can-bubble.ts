@@ -6,7 +6,7 @@ import {PointerEventType} from "./pointer-event-type";
  * @param {MouseEvent | TouchEvent} e
  * @returns {boolean}
  */
-export function canBubble (type: PointerEventType, e: MouseEvent|TouchEvent): boolean {
+export function canBubble(type: PointerEventType, e: MouseEvent | TouchEvent): boolean {
 	switch (type) {
 		case "pointerover":
 		case "pointerdown":

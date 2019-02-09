@@ -31,7 +31,7 @@ const POINTER_UP_FALLBACK_LISTENER_MAP: Map<EventTarget, IDisposable> = new Map(
  * @param {MouseEvent} e
  * @returns {IDisposable}
  */
-function dispatchPointerUpForPointerEventOnNextGlobalUpEvent (e: MouseEvent): IDisposable {
+function dispatchPointerUpForPointerEventOnNextGlobalUpEvent(e: MouseEvent): IDisposable {
 	const {target, currentTarget} = e;
 
 	const dispose = () => {
@@ -39,73 +39,88 @@ function dispatchPointerUpForPointerEventOnNextGlobalUpEvent (e: MouseEvent): ID
 	};
 
 	const handler = (upEvent: MouseEvent) => {
-
 		// Use the coordinate-specific values from the mouseup event and set it on the constructed 'pointerup' event
 		const {left, top} = isElement(currentTarget) ? currentTarget.getBoundingClientRect() : {left: 0, top: 0};
 
 		createPointerEventsForMouseOfTypeAndDispatch("pointerup", e, currentTarget!, {
 			target: {
-				value: target, ...SHARED_DESCRIPTOR_OPTIONS
+				value: target,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			currentTarget: {
-				value: currentTarget, ...SHARED_DESCRIPTOR_OPTIONS
+				value: currentTarget,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			clientX: {
-				value: upEvent.clientX, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.clientX,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			clientY: {
-				value: upEvent.clientY, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.clientY,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			screenX: {
-				value: upEvent.screenX, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.screenX,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			screenY: {
-				value: upEvent.screenY, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.screenY,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			layerX: {
-				value: upEvent.layerX, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.layerX,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			layerY: {
-				value: upEvent.layerY, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.layerY,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			movementX: {
-				value: upEvent.movementX, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.movementX,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			movementY: {
-				value: upEvent.movementY, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.movementY,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			offsetX: {
-				value: upEvent.clientX - left, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.clientX - left,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			offsetY: {
-				value: upEvent.clientY - top, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.clientY - top,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			pageX: {
-				value: upEvent.pageX, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.pageX,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			pageY: {
-				value: upEvent.pageY, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.pageY,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			x: {
-				value: upEvent.x, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.x,
+				...SHARED_DESCRIPTOR_OPTIONS
 			},
 
 			y: {
-				value: upEvent.y, ...SHARED_DESCRIPTOR_OPTIONS
+				value: upEvent.y,
+				...SHARED_DESCRIPTOR_OPTIONS
 			}
 		});
 
@@ -121,7 +136,7 @@ function dispatchPointerUpForPointerEventOnNextGlobalUpEvent (e: MouseEvent): ID
  * @param {EventTarget} _eventTarget
  * @param {MouseEvent} _e
  */
-function handlePrePointerEventForMouse (_pointerEventType: PointerEventType, _eventTarget: EventTarget, _e: MouseEvent): void {
+function handlePrePointerEventForMouse(_pointerEventType: PointerEventType, _eventTarget: EventTarget, _e: MouseEvent): void {
 	// There's nothing to do here
 }
 
@@ -130,12 +145,10 @@ function handlePrePointerEventForMouse (_pointerEventType: PointerEventType, _ev
  * @param {PointerEventType} pointerEventType
  * @param {MouseEvent} e
  */
-function handlePostPointerEventForMouse (pointerEventType: PointerEventType, e: MouseEvent): void {
+function handlePostPointerEventForMouse(pointerEventType: PointerEventType, e: MouseEvent): void {
 	switch (pointerEventType) {
-
 		case "pointercancel":
 		case "pointerup":
-
 			// Clean up after the global "pointerup" listener, if it exists
 			if (e.currentTarget != null && POINTER_UP_FALLBACK_LISTENER_MAP.has(e.currentTarget)) {
 				const handler = POINTER_UP_FALLBACK_LISTENER_MAP.get(e.currentTarget)!;
@@ -167,117 +180,146 @@ function handlePostPointerEventForMouse (pointerEventType: PointerEventType, e: 
  * @param {MouseEvent} e
  * @returns {{[Key in DynamicPointerEventProperty]: PropertyDescriptor}}
  */
-function handleDynamicPropertiesForContactMouse (pointerId: number, type: "pointerdown"|"pointermove"|"pointerover"|"pointerenter"|"pointerup"|"gotpointercapture"|"lostpointercapture", e: MouseEvent): { [Key in DynamicPointerEventProperty]: PropertyDescriptor } {
+function handleDynamicPropertiesForContactMouse(
+	pointerId: number,
+	type: "pointerdown" | "pointermove" | "pointerover" | "pointerenter" | "pointerup" | "gotpointercapture" | "lostpointercapture",
+	e: MouseEvent
+): {[Key in DynamicPointerEventProperty]: PropertyDescriptor} {
 	return {
 		target: {
-			value: getMouseTarget(pointerId, e), ...SHARED_DESCRIPTOR_OPTIONS
+			value: getMouseTarget(pointerId, e),
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		button: {
 			// If the pointer is simply over the element, no pointer contact has changed since last event.
 			// https://www.w3.org/TR/pointerevents2/#the-button-property
-			value: type === "pointerover" || type === "gotpointercapture" ? -1 : type === "lostpointercapture" ? 0 : e.button, ...SHARED_DESCRIPTOR_OPTIONS
+			value: type === "pointerover" || type === "gotpointercapture" ? -1 : type === "lostpointercapture" ? 0 : e.button,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		buttons: {
-			value: type === "lostpointercapture" ? 0 : type === "gotpointercapture" ? 1 : e.buttons, ...SHARED_DESCRIPTOR_OPTIONS
+			value: type === "lostpointercapture" ? 0 : type === "gotpointercapture" ? 1 : e.buttons,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		clientX: {
-			value: e.clientX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.clientX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		clientY: {
-			value: e.clientY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.clientY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		screenX: {
-			value: e.screenX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.screenX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		screenY: {
-			value: e.screenY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.screenY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		layerX: {
-			value: e.layerX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.layerX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		layerY: {
-			value: e.layerY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.layerY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		movementX: {
-			value: e.movementX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.movementX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		movementY: {
-			value: e.movementY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.movementY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		offsetX: {
-			value: e.offsetX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.offsetX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		offsetY: {
-			value: e.offsetY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.offsetY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		pageX: {
-			value: e.pageX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.pageX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		pageY: {
-			value: e.pageY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.pageY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		x: {
-			value: e.x, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.x,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		y: {
-			value: e.y, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.y,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// For everything other than pointerover/pointerleave/pointerout/pointerenter, the related target should be null
 		// https://www.w3.org/TR/pointerevents2/
 		relatedTarget: {
-			value: null, ...SHARED_DESCRIPTOR_OPTIONS
+			value: null,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 		// The width and height of active mouse and pen pointers are always equal to 1
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		width: {
-			value: 1, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 1,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 		height: {
-			value: 1, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 1,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// if the device doesn't support pressure (mice and pens doesn't), the pressure is always 0.5 except for "up" events (which is zero)
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		pressure: {
-			value: getPressure(type, e), ...SHARED_DESCRIPTOR_OPTIONS
+			value: getPressure(type, e),
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// if the device doesn't support tangential pressure (mice and pens doesn't), the value is always 0
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		tangentialPressure: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// Mouse pointers doesn't support tilt. Default to values of zero
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		tiltX: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 		tiltY: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// Mouse pointers doesn't support twist. Default to values of zero
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		twist: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		}
 	};
 }
@@ -288,113 +330,138 @@ function handleDynamicPropertiesForContactMouse (pointerId: number, type: "point
  * @param {MouseEvent} e
  * @returns {{[Key in DynamicPointerEventProperty]: PropertyDescriptor}}
  */
-function handleDynamicPropertiesForNoContactMouse (pointerId: number, e: MouseEvent): { [Key in DynamicPointerEventProperty]: PropertyDescriptor } {
+function handleDynamicPropertiesForNoContactMouse(pointerId: number, e: MouseEvent): {[Key in DynamicPointerEventProperty]: PropertyDescriptor} {
 	return {
 		target: {
-			value: getMouseTarget(pointerId, e), ...SHARED_DESCRIPTOR_OPTIONS
+			value: getMouseTarget(pointerId, e),
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		button: {
-			value: e.button, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.button,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		buttons: {
-			value: e.buttons, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.buttons,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		clientX: {
-			value: e.clientX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.clientX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		clientY: {
-			value: e.clientY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.clientY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		screenX: {
-			value: e.screenX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.screenX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		screenY: {
-			value: e.screenY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.screenY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		layerX: {
-			value: e.layerX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.layerX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		layerY: {
-			value: e.layerY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.layerY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		movementX: {
-			value: e.movementX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.movementX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		movementY: {
-			value: e.movementY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.movementY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		offsetX: {
-			value: e.offsetX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.offsetX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		offsetY: {
-			value: e.offsetY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.offsetY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		pageX: {
-			value: e.pageX, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.pageX,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		pageY: {
-			value: e.pageY, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.pageY,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		x: {
-			value: e.x, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.x,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		y: {
-			value: e.y, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.y,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		relatedTarget: {
-			value: e.relatedTarget, ...SHARED_DESCRIPTOR_OPTIONS
+			value: e.relatedTarget,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 		// The width and height of active mouse and pen pointers are always equal to 1
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		width: {
-			value: 1, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 1,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 		height: {
-			value: 1, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 1,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// if the device doesn't support pressure (mice and pens doesn't), the pressure is always 0.5 except for "up" events (which is zero)
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		pressure: {
-			value: getPressure("pointerout", e), ...SHARED_DESCRIPTOR_OPTIONS
+			value: getPressure("pointerout", e),
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// if the device doesn't support tangential pressure (mice and pens doesn't), the value is always 0
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		tangentialPressure: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// Mouse pointers doesn't support tilt. Default to values of zero
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		tiltX: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 		tiltY: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// Mouse pointers doesn't support twist. Default to values of zero
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		twist: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		}
 	};
 }
@@ -406,9 +473,8 @@ function handleDynamicPropertiesForNoContactMouse (pointerId: number, e: MouseEv
  * @param {MouseEvent} e
  * @returns {{[Key in DynamicPointerEventProperty]: PropertyDescriptor}}
  */
-function handleDynamicPropertiesForPointerEventOnMouse (pointerId: number, type: PointerEventType, e: MouseEvent): { [Key in DynamicPointerEventProperty]: PropertyDescriptor } {
+function handleDynamicPropertiesForPointerEventOnMouse(pointerId: number, type: PointerEventType, e: MouseEvent): {[Key in DynamicPointerEventProperty]: PropertyDescriptor} {
 	switch (type) {
-
 		case "pointerdown":
 		case "pointermove":
 		case "pointerup":
@@ -434,11 +500,11 @@ function handleDynamicPropertiesForPointerEventOnMouse (pointerId: number, type:
  * @param {MouseEvent} e
  * @returns {PointerEvent[]}
  */
-function createPointerEventsForMouseOfType (type: PointerEventType, e: MouseEvent): PointerEvent[] {
+function createPointerEventsForMouseOfType(type: PointerEventType, e: MouseEvent): PointerEvent[] {
 	const pointerId = currentMousePointerId;
 
 	const initOptions: IPointerEventInitRequired = {
-		...<MouseEventInit>e,
+		...(<MouseEventInit>e),
 
 		// Mice are always active pointers, so their pointer ids won't increment
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
@@ -465,58 +531,72 @@ function createPointerEventsForMouseOfType (type: PointerEventType, e: MouseEven
 
 	// Define all properties of MouseEvents that should be set on the event object
 	// noinspection JSDeprecatedSymbols
-	const overwrittenMouseEventProperties: { [Key in RequiredOverwrittenMouseEventProperties]: PropertyDescriptor }&{ [Key in OptionalOverwrittenMouseEventProperties]?: PropertyDescriptor } = {
-
+	const overwrittenMouseEventProperties: {[Key in RequiredOverwrittenMouseEventProperties]: PropertyDescriptor} & {[Key in OptionalOverwrittenMouseEventProperties]?: PropertyDescriptor} = {
 		scoped: {
-			value: (<any>e).scoped, ...SHARED_DESCRIPTOR_OPTIONS
+			value: (<any>e).scoped,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// The 'fromElement' property should be set to 'null' for interoperability reasons according to the spec
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		fromElement: {
-			value: null, ...SHARED_DESCRIPTOR_OPTIONS
+			value: null,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// The 'toElement' property should be set to 'null' for interoperability reasons according to the spec
 		// https://www.w3.org/TR/pointerevents/#pointerevent-interface
 		toElement: {
-			value: null, ...SHARED_DESCRIPTOR_OPTIONS
+			value: null,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// The 'detail' property should always have a value of 0
 		// https://www.w3.org/TR/pointerevents/#attributes-and-default-actions
 		detail: {
-			value: 0, ...SHARED_DESCRIPTOR_OPTIONS
+			value: 0,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		// The 'composed' property should always have a value of true
 		// https://www.w3.org/TR/pointerevents/#attributes-and-default-actions
 		composed: {
-			value: true, ...SHARED_DESCRIPTOR_OPTIONS
+			value: true,
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
 		composedPath: {
-			value: () => getEventPath(e.target as Element), ...SHARED_DESCRIPTOR_OPTIONS
+			value: () => getEventPath(e.target as Element),
+			...SHARED_DESCRIPTOR_OPTIONS
 		},
 
-		...(!("region" in MouseEvent.prototype) ? {} : {
-			region: {
-				value: (<any>e).region, ...SHARED_DESCRIPTOR_OPTIONS
-			}
-		}),
+		...(!("region" in MouseEvent.prototype)
+			? {}
+			: {
+					region: {
+						value: (<any>e).region,
+						...SHARED_DESCRIPTOR_OPTIONS
+					}
+			  }),
 
-		...(!("path" in e) ? {} : {
-			path: {
-				// Touch contact are indicated by the button value 0
-				value: (<any>e).path, ...SHARED_DESCRIPTOR_OPTIONS
-			}
-		}),
+		...(!("path" in e)
+			? {}
+			: {
+					path: {
+						// Touch contact are indicated by the button value 0
+						value: (<any>e).path,
+						...SHARED_DESCRIPTOR_OPTIONS
+					}
+			  }),
 
-		...(!("deepPath" in Event.prototype) || !isElement(e.target) ? {} : {
-			path: {
-				value: () => getEventPath(e.target as Element), ...SHARED_DESCRIPTOR_OPTIONS
-			}
-		})
+		...(!("deepPath" in Event.prototype) || !isElement(e.target)
+			? {}
+			: {
+					path: {
+						value: () => getEventPath(e.target as Element),
+						...SHARED_DESCRIPTOR_OPTIONS
+					}
+			  })
 	};
 
 	// Create a new PointerEvent
@@ -538,7 +618,7 @@ function createPointerEventsForMouseOfType (type: PointerEventType, e: MouseEven
  * @param {EventTarget} eventTarget
  * @param {PropertyDescriptorMap} [extraDescriptors]
  */
-export function createPointerEventsForMouseOfTypeAndDispatch (type: PointerEventType, e: MouseEvent, eventTarget: EventTarget, extraDescriptors?: PropertyDescriptorMap): void {
+export function createPointerEventsForMouseOfTypeAndDispatch(type: PointerEventType, e: MouseEvent, eventTarget: EventTarget, extraDescriptors?: PropertyDescriptorMap): void {
 	const pointerEvents = createPointerEventsForMouseOfType(type, e);
 	// Handle whatever needs to come before the MouseEvent
 	handlePrePointerEventForMouse(type, eventTarget, e);
@@ -565,7 +645,7 @@ export function createPointerEventsForMouseOfTypeAndDispatch (type: PointerEvent
  * @param {EventTarget} eventTarget
  * @param {EventListenerOrEventListenerObject} listener
  */
-function createPointerEventsForMouseOfTypeAndInvoke (type: PointerEventType, e: MouseEvent, eventTarget: EventTarget, listener: EventListenerOrEventListenerObject): void {
+function createPointerEventsForMouseOfTypeAndInvoke(type: PointerEventType, e: MouseEvent, eventTarget: EventTarget, listener: EventListenerOrEventListenerObject): void {
 	// Handle whatever needs to come before the MouseEvent
 	handlePrePointerEventForMouse(type, eventTarget, e);
 	const pointerEvents = createPointerEventsForMouseOfType(type, e);
@@ -588,6 +668,6 @@ function createPointerEventsForMouseOfTypeAndInvoke (type: PointerEventType, e: 
  * @param {MouseEvent} e
  * @param {EventListenerOrEventListenerObject} listener
  */
-export function handlePointerEventForMouse (eventTarget: EventTarget, type: PointerEventType, e: MouseEvent, listener: EventListenerOrEventListenerObject): void {
+export function handlePointerEventForMouse(eventTarget: EventTarget, type: PointerEventType, e: MouseEvent, listener: EventListenerOrEventListenerObject): void {
 	createPointerEventsForMouseOfTypeAndInvoke(type, e, eventTarget, listener);
 }

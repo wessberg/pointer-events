@@ -6,7 +6,7 @@ import {isTouchDevice} from "./is-touch-device";
  * @param {string} pointerEventType
  * @returns {string|null}
  */
-export function convertPointerEventType (pointerEventType: PointerEventType): string|null {
+export function convertPointerEventType(pointerEventType: PointerEventType): string | null {
 	if (isTouchDevice) {
 		switch (pointerEventType) {
 			case "pointerdown":
@@ -25,9 +25,7 @@ export function convertPointerEventType (pointerEventType: PointerEventType): st
 			case "gotpointercapture":
 				return null;
 		}
-	}
-
-	else {
+	} else {
 		switch (pointerEventType) {
 			case "pointerdown":
 				return "mousedown";

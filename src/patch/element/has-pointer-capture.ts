@@ -9,7 +9,7 @@ if (!SUPPORTS_POINTER_EVENTS) {
 	 * https://www.w3.org/TR/pointerevents/#extensions-to-the-element-interface
 	 * @param {number} pointerId
 	 */
-	(<any>Element).prototype.hasPointerCapture = function (pointerId: number): boolean {
+	(<any>Element).prototype.hasPointerCapture = function(pointerId: number): boolean {
 		return POINTER_ID_TO_CAPTURED_TARGET_MAP.get(pointerId) != null;
 	};
 }

@@ -8,8 +8,7 @@ import {addBoundHandler} from "../../bound-handler";
 import {SUPPORTS_POINTER_EVENTS} from "../window/pointer-event-check";
 
 if (!SUPPORTS_POINTER_EVENTS) {
-
-// Keep a reference to the original addEventListener prototype method
+	// Keep a reference to the original addEventListener prototype method
 	const originalAddEventListener = EventTarget.prototype.addEventListener;
 
 	/**
@@ -18,7 +17,7 @@ if (!SUPPORTS_POINTER_EVENTS) {
 	 * @param {EventListenerOrEventListenerObject | null} listener
 	 * @param {boolean | AddEventListenerOptions} options
 	 */
-	EventTarget.prototype.addEventListener = function (type: string, listener: EventListenerOrEventListenerObject|null, options?: boolean|AddEventListenerOptions): void {
+	EventTarget.prototype.addEventListener = function(type: string, listener: EventListenerOrEventListenerObject | null, options?: boolean | AddEventListenerOptions): void {
 		if (listener == null) {
 			return originalAddEventListener(type, listener, options);
 		}
@@ -26,9 +25,7 @@ if (!SUPPORTS_POINTER_EVENTS) {
 		if (isPointerEventType(type)) {
 			const convertedEventType = convertPointerEventType(type);
 
-			const handler = (e: MouseEvent|TouchEvent) => "changedTouches" in e
-				? handlePointerEventForTouch(this, type, e, listener)
-				: handlePointerEventForMouse(this, type, e, listener);
+			const handler = (e: MouseEvent | TouchEvent) => ("changedTouches" in e ? handlePointerEventForTouch(this, type, e, listener) : handlePointerEventForMouse(this, type, e, listener));
 
 			const firedPointerEventsHandler = (e: PointerEvent) => {
 				// Only call the listener if the PointerEvent is **NOT** trusted
@@ -50,9 +47,7 @@ if (!SUPPORTS_POINTER_EVENTS) {
 			// Add the original listener to the bound handler Map mapped to the 'firedPointerEventsHandler' function so that we can
 			// remove the listener at a later point
 			addBoundHandler(listener, firedPointerEventsHandler);
-		}
-
-		else {
+		} else {
 			originalAddEventListener.call(this, type, listener, options);
 		}
 	};

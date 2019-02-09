@@ -9,11 +9,11 @@ import {SHARED_DESCRIPTOR_OPTIONS} from "./shared-descriptor-options";
 // tslint:disable:no-any
 
 export interface ICloneEventAsPointerEventOptions {
-	e: MouseEvent|TouchEvent;
+	e: MouseEvent | TouchEvent;
 	initOptions: Partial<PointerEventInit>;
 	type: PointerEventType;
-	overwrittenMouseEventProperties: { [Key in RequiredOverwrittenMouseEventProperties]: PropertyDescriptor }&{ [Key in OptionalOverwrittenMouseEventProperties]?: PropertyDescriptor };
-	dynamicPropertiesHandler (): { [Key in DynamicPointerEventProperty]?: PropertyDescriptor };
+	overwrittenMouseEventProperties: {[Key in RequiredOverwrittenMouseEventProperties]: PropertyDescriptor} & {[Key in OptionalOverwrittenMouseEventProperties]?: PropertyDescriptor};
+	dynamicPropertiesHandler(): {[Key in DynamicPointerEventProperty]?: PropertyDescriptor};
 }
 
 /**
@@ -21,7 +21,7 @@ export interface ICloneEventAsPointerEventOptions {
  * @param {ICloneEventAsPointerEventOptions} options
  * @returns {PointerEvent}
  */
-export function cloneEventAsPointerEvent ({dynamicPropertiesHandler, e, initOptions, overwrittenMouseEventProperties, type}: ICloneEventAsPointerEventOptions): PointerEvent {
+export function cloneEventAsPointerEvent({dynamicPropertiesHandler, e, initOptions, overwrittenMouseEventProperties, type}: ICloneEventAsPointerEventOptions): PointerEvent {
 	// Create a new PointerEvent
 	const clone = new PointerEvent(type, initOptions);
 
@@ -30,7 +30,7 @@ export function cloneEventAsPointerEvent ({dynamicPropertiesHandler, e, initOpti
 	const rawStopPropagation = clone.stopPropagation;
 	const rawStopImmediatePropagation = clone.stopImmediatePropagation;
 
-	clone.preventDefault = function () {
+	clone.preventDefault = function() {
 		rawPreventDefault.call(this);
 		if (!e.defaultPrevented) {
 			e.preventDefault();
@@ -38,31 +38,34 @@ export function cloneEventAsPointerEvent ({dynamicPropertiesHandler, e, initOpti
 	};
 
 	// Stopping propagation on the clone will also stop propagation on the original event
-	clone.stopPropagation = function () {
+	clone.stopPropagation = function() {
 		rawStopPropagation.call(this);
 		e.stopPropagation();
 	};
 
 	// Stopping immediate propagation on the clone will also stop immediate propagation on the original event
-	clone.stopImmediatePropagation = function () {
+	clone.stopImmediatePropagation = function() {
 		rawStopImmediatePropagation.call(this);
 		e.stopImmediatePropagation();
 	};
 
 	let additionalPropsToSet: PropertyDescriptorMap = {};
-	CLONEABLE_UI_EVENT_PROPERTIES.forEach(key => additionalPropsToSet[key] = {value: e[key], ...SHARED_DESCRIPTOR_OPTIONS});
+	CLONEABLE_UI_EVENT_PROPERTIES.forEach(
+		key =>
+			(additionalPropsToSet[key] = {
+				value: e[key],
+				...SHARED_DESCRIPTOR_OPTIONS
+			})
+	);
 
 	additionalPropsToSet = {
 		...additionalPropsToSet,
-			...(<PropertyDescriptorMap>overwrittenMouseEventProperties),
+		...(<PropertyDescriptorMap>overwrittenMouseEventProperties),
 		// Handle all dynamic properties based on the type of PointerEvent
 		...(<PropertyDescriptorMap>dynamicPropertiesHandler())
-};
+	};
 
 	// Set MouseEvent (and inherited UIEvent) properties on the event object
-	Object.defineProperties(
-		clone,
-		additionalPropsToSet
-	);
+	Object.defineProperties(clone, additionalPropsToSet);
 	return clone;
 }

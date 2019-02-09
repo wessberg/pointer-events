@@ -5,6 +5,6 @@ import {currentPenOrTouchPointerId} from "./current-touch-pointer-id";
  * @param {Touch} touch
  * @returns {number}
  */
-export function getPointerIdFromTouch (touch: Touch): number {
+export function getPointerIdFromTouch(touch: Touch): number {
 	return touch.identifier + currentPenOrTouchPointerId;
 }

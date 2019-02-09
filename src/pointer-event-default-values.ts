@@ -4,7 +4,7 @@ import {IPointerEventBase} from "./i-pointer-event-base";
  * The default values for constructed PointerEvents
  * @type {object}
  */
-export const POINTER_EVENT_DEFAULT_VALUES: { [Key in keyof IPointerEventBase]: IPointerEventBase[Key] } = {
+export const POINTER_EVENT_DEFAULT_VALUES: {[Key in keyof IPointerEventBase]: IPointerEventBase[Key]} = {
 	pointerId: 0,
 	width: 1,
 	height: 1,

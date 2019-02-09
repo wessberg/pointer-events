@@ -3,8 +3,8 @@
  * @param {string} message
  * @param {string} name
  */
-export function throwDOMException (message?: string, name?: string): void {
-	let exception: DOMException|Error;
+export function throwDOMException(message?: string, name?: string): void {
+	let exception: DOMException | Error;
 	try {
 		exception = new DOMException(message, name);
 	} catch (ex) {

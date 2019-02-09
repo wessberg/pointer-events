@@ -7,6 +7,6 @@ export interface IPointerEventBase {
 	readonly tiltX: number;
 	readonly tiltY: number;
 	readonly twist: number;
-	readonly pointerType: ""|"mouse"|"pen"|"touch";
+	readonly pointerType: "" | "mouse" | "pen" | "touch";
 	readonly isPrimary: boolean;
 }

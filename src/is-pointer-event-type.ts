@@ -5,7 +5,7 @@ import {PointerEventType} from "./pointer-event-type";
  * @param {string} type
  * @returns {type is PointerEventType}
  */
-export function isPointerEventType (type: string): type is PointerEventType {
+export function isPointerEventType(type: string): type is PointerEventType {
 	switch (<PointerEventType>type) {
 		case "gotpointercapture":
 		case "lostpointercapture":

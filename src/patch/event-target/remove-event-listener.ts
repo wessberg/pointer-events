@@ -4,7 +4,6 @@ import {isPointerEventType} from "../../is-pointer-event-type";
 import {convertPointerEventType} from "../../convert-pointer-event-type";
 
 if (!SUPPORTS_POINTER_EVENTS) {
-
 	// Keep a reference to the original removeEventListener prototype method
 	const originalRemoveEventListener = EventTarget.prototype.removeEventListener;
 
@@ -15,7 +14,7 @@ if (!SUPPORTS_POINTER_EVENTS) {
 	 * @param {EventListenerOrEventListenerObject | null} listener
 	 * @param {EventListenerOptions | boolean} options
 	 */
-	EventTarget.prototype.removeEventListener = function (type: string, listener?: EventListenerOrEventListenerObject|null, options?: EventListenerOptions|boolean): void {
+	EventTarget.prototype.removeEventListener = function(type: string, listener?: EventListenerOrEventListenerObject | null, options?: EventListenerOptions | boolean): void {
 		const convertedEventType = isPointerEventType(type) ? convertPointerEventType(type) : undefined;
 
 		if (listener == null) {
@@ -36,9 +35,7 @@ if (!SUPPORTS_POINTER_EVENTS) {
 				}
 			});
 			boundHandlerMap.delete(listener);
-		}
-
-		else {
+		} else {
 			originalRemoveEventListener.call(this, type, listener, options);
 			if (convertedEventType != null) {
 				originalRemoveEventListener.call(this, convertedEventType, listener, options);

@@ -5,7 +5,7 @@ export const boundHandlerMap: Map<EventListenerOrEventListenerObject, Set<Functi
  * @param {EventListenerOrEventListenerObject} listener
  * @param {Function} handler
  */
-export function addBoundHandler (listener: EventListenerOrEventListenerObject, handler: Function): void {
+export function addBoundHandler(listener: EventListenerOrEventListenerObject, handler: Function): void {
 	let set = boundHandlerMap.get(listener);
 	if (set == null) {
 		set = new Set();

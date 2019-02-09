@@ -7,12 +7,12 @@ import {getParent} from "./get-parent";
  * @param {Element} target
  * @returns {DocumentOrShadowRoot}
  */
-export function findNearestRoot (target: Element): DocumentOrShadowRoot {
-	let currentElement: EventTarget|null = target;
+export function findNearestRoot(target: Element): DocumentOrShadowRoot {
+	let currentElement: EventTarget | null = target;
 	while (currentElement != null) {
-		if ("ShadowRoot" in window && (currentElement instanceof (<any>window).ShadowRoot)) {
+		if ("ShadowRoot" in window && currentElement instanceof (<any>window).ShadowRoot) {
 			// Assume this is a ShadowRoot
-			return <ShadowRoot> currentElement;
+			return <ShadowRoot>currentElement;
 		}
 
 		const parent = getParent(currentElement);

@@ -1,7 +1,7 @@
 import {getParent} from "./get-parent";
 import {ITouchActionAncestor, TouchAction} from "./i-touch-action-ancestor";
 
-const styleDeclarationPropertyName = <keyof CSSStyleDeclaration> "touchAction";
+const styleDeclarationPropertyName = <keyof CSSStyleDeclaration>"touchAction";
 const styleAttributePropertyName = "touch-action";
 const styleAttributePropertyNameRegex = new RegExp(`${styleAttributePropertyName}:\\s*([^;]*)`);
 
@@ -10,11 +10,11 @@ const styleAttributePropertyNameRegex = new RegExp(`${styleAttributePropertyName
  * @param {Element} target
  * @returns {ITouchActionAncestor[]}
  */
-export function findNearestAncestorsWithTouchAction (target: Element): ITouchActionAncestor[] {
+export function findNearestAncestorsWithTouchAction(target: Element): ITouchActionAncestor[] {
 	const path: ITouchActionAncestor[] = [];
-	let currentElement: EventTarget|null = target;
+	let currentElement: EventTarget | null = target;
 	while (currentElement != null) {
-		let touchActionPropertyValue: string|null = null;
+		let touchActionPropertyValue: string | null = null;
 		if ("style" in currentElement) {
 			touchActionPropertyValue = (<HTMLElement>currentElement).style[styleDeclarationPropertyName];
 
@@ -38,10 +38,8 @@ export function findNearestAncestorsWithTouchAction (target: Element): ITouchAct
 
 			if (touchActionPropertyValue != null) {
 				path.push({
-					element: currentElement, touchAction: new Set(<TouchAction[]>touchActionPropertyValue
-						.split(/\s/)
-						.map(part => part.trim())
-					)
+					element: currentElement,
+					touchAction: new Set(<TouchAction[]>touchActionPropertyValue.split(/\s/).map(part => part.trim()))
 				});
 			}
 		}

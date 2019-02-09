@@ -5,9 +5,9 @@ import {getParent} from "./get-parent";
  * @param {Element} target
  * @returns {Element[]}
  */
-export function getEventPath (target: Element): EventTarget[] {
+export function getEventPath(target: Element): EventTarget[] {
 	const path: EventTarget[] = [];
-	let currentElement: EventTarget|null = target;
+	let currentElement: EventTarget | null = target;
 	while (currentElement != null) {
 		path.push(currentElement);
 		currentElement = getParent(currentElement);
