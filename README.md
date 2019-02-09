@@ -1,6 +1,6 @@
 <!-- SHADOW_SECTION_LOGO_START -->
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/pointer-events/master/documentation/asset/logo.png" height="150"   /></div>
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/pointer-events/master/documentation/asset/logo.png" height="250"   /></div>
 
 <!-- SHADOW_SECTION_LOGO_END -->
 
