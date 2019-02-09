@@ -5,6 +5,9 @@ import {getDescriptorWithFallback} from "./get-descriptor-with-fallback";
 import {SEEN_POINTER_IDS} from "./seen-pointer-ids";
 
 // tslint:disable:no-any
+
+// tslint:disable:bool-param-default
+
 /**
  * A specialization of MouseEvents as spec'ed in https://www.w3.org/TR/pointerevents
  */
